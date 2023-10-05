@@ -1,0 +1,32 @@
+body{
+    background-color: aqua;
+}
+img{
+    width: 200px;
+    height: 200px;
+}
+h1{
+    color: coral;
+
+}
+
+#logo{
+    width: 20px;
+    height: 20px;
+}
+
+.titulo1{
+    color: hotpink;
+}
+
+.tilulo2{
+    color: navajowhite;
+}
+
+.texto{
+
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    color: darkorange;
+}

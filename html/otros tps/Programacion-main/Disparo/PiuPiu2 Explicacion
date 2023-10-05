@@ -1,0 +1,200 @@
+# Importamos la librería pygame para hacer juegos
+import pygame
+# Importamos otras librerías necesarias
+import random
+import time
+
+# Inicializamos pygame
+pygame.init()
+
+# Definimos las dimensiones de la ventana del juego
+ANCHO = 800
+ALTO = 600
+
+# Definimos colores que usaremos en el juego
+BLANCO = (255, 255, 255)  # Blanco para el fondo
+ROJO = (255, 0, 0)  # Rojo para textos y cosas importantes
+
+# Creamos la clase para los enemigos
+class Enemigo(pygame.sprite.Sprite):
+    # Cuando creamos un enemigo...
+    def __init__(self):
+        super().__init__()
+        # Cargamos su imagen de enemigo y la hacemos del tamaño correcto
+        self.image = pygame.image.load("enemigo.png").convert_alpha()
+        self.image = pygame.transform.scale(self.image, (80, 80))
+        # Creamos un "rectángulo" alrededor del enemigo para manejar su posición
+        self.rect = self.image.get_rect()
+        # Lo ponemos en una posición inicial aleatoria en la parte de arriba
+        self.rect.x = random.randint(0, ANCHO - self.rect.width)
+        self.rect.y = -self.rect.height
+        # Le damos una velocidad para que caiga hacia abajo
+
+    # En cada "frame" del juego...
+    def update(self):
+        # Movemos al enemigo hacia abajo
+        self.rect.y += self.vel_y
+        # Si se sale de la pantalla por abajo, lo eliminamos
+
+# Creamos la clase para el protagonista (el jugador)
+class Protagonista(pygame.sprite.Sprite):
+    # Cuando creamos al protagonista...
+    def __init__(self):
+        super().__init__()
+        # Cargamos su imagen y la hacemos del tamaño correcto
+        self.image = pygame.image.load("pixil-frame-0.png").convert_alpha()
+        self.image = pygame.transform.scale(self.image, (80, 80))
+        # Creamos un rectángulo alrededor del protagonista para manejar su posición
+        self.rect = self.image.get_rect()
+        # Lo ponemos en una posición inicial en el centro abajo de la pantalla
+        self.rect.centerx = ANCHO // 2
+        self.rect.bottom = ALTO - 10
+        # Definimos su velocidad de movimiento
+        self.vel_x = 5
+        # Controlamos si puede disparar y cuándo fue su último disparo
+        self.puede_disparar = True
+        self.tiempo_ultimo_disparo = 0
+
+    # En cada "frame" del juego...
+    def update(self):
+        # Manejamos el movimiento del protagonista con las teclas izquierda y derecha
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_LEFT] or keys[pygame.K_a]:
+            self.rect.x -= self.vel_x
+        if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
+            self.rect.x += self.vel_x
+        # Limitamos la posición del protagonista para que no se salga de la pantalla
+
+        # Manejamos el disparo del protagonista
+        if keys[pygame.K_SPACE] and self.puede_disparar:
+            self.puede_disparar = False
+            self.tiempo_ultimo_disparo = pygame.time.get_ticks()
+            # Creamos una bala y la agregamos al grupo de sprites
+
+    # Función para verificar si el protagonista puede disparar nuevamente
+    def puede_disparar_nuevamente(self):
+        tiempo_actual = pygame.time.get_ticks()
+        # Comparamos el tiempo actual con el tiempo de su último disparo
+
+# Creamos la clase para las balas
+class Bala(pygame.sprite.Sprite):
+    # Cuando creamos una bala...
+    def __init__(self, x, y):
+        super().__init__()
+        # Cargamos su imagen de bala y la hacemos del tamaño correcto
+        self.image = pygame.image.load("bala.png").convert_alpha()
+        self.image = pygame.transform.scale(self.image, (15, 20))
+        # Creamos un rectángulo alrededor de la bala para manejar su posición
+        self.rect = self.image.get_rect()
+        # La ponemos en la posición del protagonista, arriba de él
+        self.rect.centerx = x
+        self.rect.bottom = y
+        # Definimos su velocidad para que se mueva hacia arriba
+
+    # En cada "frame" del juego...
+    def update(self):
+        # Movemos la bala hacia arriba
+        self.rect.y += self.vel_y
+        # Si se sale de la pantalla por arriba, la eliminamos
+
+# Creamos la clase para el mensaje de "Se acabó"
+class MensajeGameover(pygame.sprite.Sprite):
+    # Cuando creamos el mensaje...
+    def __init__(self, puntuacion):
+        super().__init__()
+        # Creamos una superficie blanca del tamaño de la ventana
+        self.image = pygame.Surface((ANCHO, ALTO))
+        self.image.fill(BLANCO)
+        # Creamos un rectángulo alrededor del mensaje para manejar su posición
+        self.rect = self.image.get_rect()
+        # Creamos el mensaje en sí con la puntuación y el texto "Se acabó"
+        fuente = pygame.font.Font(None, 48)
+        mensaje = fuente.render("Se acabó", True, ROJO)
+        puntuacion_texto = fuente.render(f"Puntuación: {puntuacion}", True, ROJO)
+        self.image.blit(mensaje, (ANCHO // 2 - mensaje.get_width() // 2, ALTO // 2 - mensaje.get_height()))
+        self.image.blit(puntuacion_texto, (ANCHO // 2 - puntuacion_texto.get_width() // 2, ALTO // 2))
+        # Guardamos el tiempo en que se mostró el mensaje para controlar su duración
+
+    # En cada "frame" del juego...
+    def update(self):
+        # Si ha pasado suficiente tiempo desde que se mostró el mensaje, cerramos el juego
+
+# Configuración de la ventana
+ventana = pygame.display.set_mode((ANCHO, ALTO))
+pygame.display.set_caption("Esquiva los Enemigos")
+
+# Creamos grupos de sprites para organizar los objetos en el juego
+todos_los_sprites = pygame.sprite.Group()
+enemigos = pygame.sprite.Group()
+balas = pygame.sprite.Group()
+protagonista = Protagonista()
+mensaje_gameover = None
+
+# Agregamos al protagonista al grupo de sprites
+todos_los_sprites.add(protagonista)
+
+# Creamos un reloj para controlar la velocidad del juego
+reloj = pygame.time.Clock()
+
+# Definimos la puntuación inicial y el estado del juego
+puntuacion = 0
+game_over = False
+tiempo_colision = None
+
+# Bucle principal del juego
+while not game_over:
+    # Manejamos eventos del juego, como cerrar la ventana
+    for evento in pygame.event.get():
+        if evento.type == pygame.QUIT:
+            game_over = True
+    
+    # Creamos enemigos aleatoriamente
+    if random.random() < 0.02:
+        # Creamos un enemigo y lo agregamos al grupo de sprites
+        enemigo = Enemigo()
+        todos_los_sprites.add(enemigo)
+        enemigos.add(enemigo)
+        
+    # Actualizamos todos los sprites
+    todos_los_sprites.update()
+    
+    # Comprobamos colisiones entre balas y enemigos
+    colisiones_balas_enemigos = pygame.sprite.groupcollide(balas, enemigos, True, True)
+    # Sumamos la cantidad de enemigos eliminados a la puntuación
+    
+    # Comprobamos colisiones entre el protagonista y los enemigos
+    colisiones_protagonista_enemigos = pygame.sprite.spritecollide(protagonista, enemigos, True)
+    # Sumamos la cantidad de enemigos eliminados al protagonista a la puntuación
+    
+    # Actualizamos el estado de disparo del protagonista
+    if protagonista.puede_disparar_nuevamente() and pygame.key.get_pressed()[pygame.K_SPACE]:
+        protagonista.puede_disparar = True
+    
+    # Comprobamos si el protagonista colisionó con un enemigo
+    if colisiones_protagonista_enemigos:
+        # Si es la primera vez que colisiona, guardamos el tiempo
+        if tiempo_colision is None:
+            tiempo_colision = time.time()
+            # Creamos el mensaje de "Se acabó" y lo agregamos al grupo de sprites
+            mensaje_gameover = MensajeGameover(puntuacion)
+            todos_los_sprites.add(mensaje_gameover)
+        # Si ha pasado suficiente tiempo desde la colisión, terminamos el juego
+        elif time.time() - tiempo_colision > 7:
+            game_over = True
+    
+    # Dibujamos la ventana del juego
+    ventana.fill(BLANCO)
+    todos_los_sprites.draw(ventana)
+    
+    # Mostramos la puntuación en tiempo real en la esquina superior izquierda
+    fuente_puntuacion = pygame.font.Font(None, 36)
+    texto_puntuacion = fuente_puntuacion.render(f"Puntuación: {puntuacion}", True, ROJO)
+    ventana.blit(texto_puntuacion, (10, 10))
+    
+    # Refrescamos la pantalla
+    pygame.display.flip()
+    # Limitamos la velocidad del juego para que no vaya muy rápido
+    reloj.tick(60)
+
+# Cerramos pygame cuando salimos del bucle
+pygame.quit()

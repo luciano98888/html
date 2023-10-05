@@ -1,0 +1,48 @@
+body{
+    background-color: aqua;
+}
+
+
+img{
+    width: 200px;
+    height: 200px;
+}
+
+#barra{
+    display: flex;
+}
+
+fondo{
+    background-color: gray;
+}
+.boton{
+    background-color: aliceblue;
+    padding: 2px,2px,1px,0px;
+    margin: 10px;
+    font-size: large;
+    border: 3px solid #f00000;
+}
+
+h1{
+    color: brown;
+}
+
+#logo{
+    width: 20px;
+    height: 20px;
+}
+
+.titulo1{
+    color: blueviolet;
+}
+
+.titulo2{
+    color: rgb(9, 51, 5);
+}
+
+.texto{
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    color: red;
+}

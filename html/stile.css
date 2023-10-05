@@ -1,0 +1,62 @@
+body{
+    background-color: rgb(66, 7, 108);
+}
+li{
+    background-color: rgb(0, 0, 0);
+    color: white;
+} 
+img{
+    width: 300px;
+    height: 300px;
+}
+#img1{
+    width: 150px;
+    height: 200px;
+}
+#img2{
+    width: 200px;
+    height: 200px;
+}
+#logo{
+    width: 200px;
+    height: 200px;
+}
+.t1{
+    background-color: rgb(55, 154, 13);
+}
+.text{
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center; 
+    color: white;
+}
+.t2{
+    background-color: black;
+}
+.boton{
+    background-color: rgb(241, 165, 236);
+    padding: 1%;
+    margin: 1px;
+    font-size: large;
+    border: 5px solid black;
+    border-radius: 150px;
+}
+img{
+    text-align: center;
+}
+#barra{
+    display: flex;
+}
+.text2{
+    font-size: 50px;
+    font-weight: bold;
+    text-align: center; 
+    color: white;
+}
+h1{
+    color: white;
+}
+h5{
+    color: white;
+}
+    

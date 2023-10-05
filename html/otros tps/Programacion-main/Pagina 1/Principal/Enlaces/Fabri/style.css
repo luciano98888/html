@@ -1,0 +1,38 @@
+body{
+    background-color:indianred ;
+}
+
+img{
+    width:100px ;
+    height:100px;
+}
+
+#barra{
+    display: flex;
+}
+
+.boton{
+    color:blue;
+    padding:5px;
+    margin: 5px;
+}
+
+#logo{
+    width: 100px;
+    height: 100px;
+}
+
+.titulo1{
+    color:rgb(200, 215, 1)
+}
+
+.titulo2{
+    color:rgb(1, 215, 40)
+}
+
+.texto{
+    font-size: 18px;
+    font-weight: bold ;
+    text-align: center;
+    color:red
+}

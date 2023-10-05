@@ -1,0 +1,40 @@
+body{
+    background-color:chartreuse;
+
+}
+img{
+    widht: 200px;
+    height: 200px;
+
+
+}
+
+barra{
+    display:flex
+}
+.fondo{
+    background-color:aqua;
+}
+.boton{
+    width: 20px;
+    height: 20px;
+}
+
+.titulo{
+    color:blue(27, 13, 222)
+}
+.titulo2{
+    color:chocolate(16, 14, 15);
+}
+.texto{
+    /*font size es el tamaño de la letra, Weight es la altura
+    y donde dice aling vendria a ser la posicion del texto, en 
+    este caso en el centro
+    En el body (archivo html) abrimos un <p> (parrafo) y al lado
+    pondremos class junto con el, nombre de la clase
+    class="texto"*/
+       font-size: 18px;
+        font- weight: bold;
+        text-align:center;
+        color: rbga(255,0,0.114);
+}

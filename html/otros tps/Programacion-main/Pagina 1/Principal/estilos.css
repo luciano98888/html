@@ -1,0 +1,51 @@
+h1 {
+    color: red;
+}
+h3{
+    background-color: yellow;
+}
+/* Define un estilo para el texto destacado */
+.texto-destacado {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    color: rgb(170, 11, 99);
+}
+.texto-cocain {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: start;
+    color: black;
+}
+.texto-adiccion {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: start;
+    color: rgb(0, 0, 0);
+}
+.title{
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    color: black;
+}
+body{
+    background-color: lightseagreen;
+}
+div{
+    color: rgb(255, 0, 191);
+}
+
+.navbar {
+    display: flex;
+}
+
+.navbar a {
+    text-decoration: none; /* Elimina el subrayado predeterminado de los enlaces */
+    padding: 10px 20px; /* Espaciado alrededor del texto del botón */
+    background-color: #007BFF; /* Color de fondo del botón */
+    color: #fff; /* Color del texto del botón */
+    border: 1px solid #007BFF; /* Borde del botón */
+    border-radius: 5px; /* Bordes redondeados */
+    margin-right: 10px; /* Espacio entre los botones */
+}
