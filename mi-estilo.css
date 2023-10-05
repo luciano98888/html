@@ -1,0 +1,40 @@
+body{ 
+    background-color: aqua;
+}
+
+img{
+    width: 200px;
+    height: 200px;
+}
+
+.titulo1{
+    color: brown;
+}
+
+.titulo2{
+    color: rgb(42, 165, 52);
+}
+
+#barra{
+    display: flex;
+}
+
+.boton{
+    background-color: rgb(177, 194, 100);
+    padding: 15px,1px,15px,10px;
+    margin: 20px;
+    font-size: large;
+    border: 3px solid #000;
+}
+
+#logo{
+    width: 20px;
+    height: 20px;
+}
+
+.texto{
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    color: black;
+}
