@@ -1,0 +1,36 @@
+body{
+    background-color: rgb(221, 128, 64);
+}
+.text{
+    text-align: center;
+    font-size: 50px;
+    font-weight: bold;
+}
+img{
+    width: 200px;
+    height: 200px;
+}
+.borde{
+    border-radius: 20%;
+    border: 5cap solid black;
+    background-color: rgb(255, 255, 255);
+    padding: 1%;
+    margin: 1px;
+}
+.borde2{
+    border-radius: 20%;
+    border: 5cap solid black;
+    background-color: rgb(255, 255, 255);
+    padding: 1%;
+    margin: 1px;
+}
+.b_t{
+    text-align: center;
+    font-size: 50px;
+    font-weight: bold;
+    border: 5px solid black;
+    border-radius: 10%;
+}
+#barra{
+    display: flex;
+}
